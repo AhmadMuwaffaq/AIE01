@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Untitled Document</title>
+    <!-- Bootstrap -->
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/transaction-history.css" rel="stylesheet" type="text/css">
+	<link href="transaction.html" rel="stylesheet" type="text/javascript">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+  </head>
+  <body>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+	<script src="js/jquery-1.11.3.min.js"></script>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed --> 
+	<script src="js/bootstrap.js"></script>
+	
+	<script type="text/javascript">
+		
+        $(document).ready(function() {
+			
+		retrieve();
+			
+		function retrieve() {
+			
+		var transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')); //getTransactionHistory();
+
+
+		if (transactionHistory) {
+
+
+			//load back into form
+			for (var i =0; i<transactionHistory.length; i++) {
+
+			var rand = i;
+			console.log("Transaction History" + rand);
+			var randomHistory = transactionHistory[rand];
+			console.log("Random History" + randomHistory);
+
+				$('.tablelist').after (
+					'<tr><td>' + randomHistory['date'] + '</td><td>' + randomHistory['category'] + '</td> <td>' + randomHistory['method'] + '</td><td>' + randomHistory['tag'] + '</td><td>' + randomHistory['description'] + '</td><td>' + randomHistory['amount'] + '</td></tr>'
+				)
+					//store current index to the html
+					$("#random-history").attr("data-current", rand);
+
+					//show remove button
+					$("#delete").show();
+					//updateTransactionHistory(transactionHistory);
+
+				 }
+		} 				
+	}
+		});
+			
+
+            //set some display states
+          /*  $("#delete").hide();		
+            //retrieve from localstorage
+            $("#retrieve").on("click", function(e) {
+                e.preventDefault();
+				
+                var transactionHistory = JSON.parse(localStorage.getItem('transactionHistory'));
+				console.log(transactionHistory);
+
+                if (transactionHistory) {
+                    var rand = Math.floor(Math.random() * transactionHistory.length);
+                    console.log("Transaction History" + rand);
+                    var randomHistory = transactionHistory[rand];
+                    console.log("Random History" + randomHistory);
+
+                    //load back into form
+
+                    $("#random-history").html(
+                        "Category: " + randomHistory['category'] + "<br/>" +
+                        "Method: " + randomHistory['method'] + "<br/>" +
+                        "Description: " + randomHistory['description'] + "<br/>" +
+                        "Amount: " + randomHistory['amount'] + "<br/>" +
+                        "Tag: " + randomHistory['tag']
+
+                  );
+
+                    //store current index to the html
+                    $("#random-history").attr("data-current", rand);
+
+                    //show remove button
+                    $("#delete").show();
+                    updateTransactionHistory(transactionHistory);
+
+
+                } else {
+                    $("#total").html("No pokemons =(");
+                    $("#random-history").html("Help generate one!");
+                }
+            }); 
+
+             $("#delete").on("click", function(e) {
+                e.preventDefault();
+                //get latest retrieved value force integer
+                var latest = parseInt($("#random-transaction").attr("data-current"));
+
+                //get the array of pokemons
+                var transactionHistory = JSON.parse(localStorage.getItem('transactionHistory'));
+                console.log("Selected Transaction: " + latest);
+
+                //delete pokemon based on index. Delete one item
+                transactionHistory.splice(latest, 1);
+
+                //delete pokemon
+                $("#status").html("Transaction deleted..");
+
+                updateTransactionHistory(transactionHistory);
+                //update total pokemon in list
+                $("#delete").hide();
+
+                //reset details
+                $("#random-history").html("");
+            });		
+			
+		}); */
+		
+	 </script>
+	
+	<div class="header">
+		<div class="nav-bar">
+		  <div class="row">
+			  <div class="col-lg-4" id="navone"><a href="index.html">Overview</a></div>
+			  <div class="col-lg-4" id="navetwo"><a href="transaction.html">Transaction</a></div>
+			  <div class="col-lg-4"><a href="transaction-history.html">Transaction History</a></div>
+		  </div>
+        </div>
+  	</div>
+  	
+  	<!-- /end of header -->
+  	
+  	<div id="page-head">
+		<h1>Transaction History</h1>
+  	</div>
+  	
+  	<div class="main-body">
+		<div class="holder">
+            <input type="button" value="Delete History" id="delete">
+			<input type="search" id="search-field">
+			<input type="submit" value="Search" id="search-btn">
+
+		<table>
+			<tr>
+				 <th>Date</th>
+				 <th>category</th> 
+				 <th>method</th>
+				 <th>tag</th>
+				 <th id="header-descrpt">description</th>
+				 <th id="header-amt">amount</th>
+			</tr>
+			<tr class="tablelist">
+ 		 	</tr>
+		</table>
+			</div>
+	</div>
+			
+  </body>	
+</html>
